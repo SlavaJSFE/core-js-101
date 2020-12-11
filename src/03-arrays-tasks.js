@@ -275,7 +275,7 @@ function getSecondItems(arr) {
 function propagateItemsByPositionIndex(arr) {
   return arr.map((elem, ind) => {
     const array = new Array(ind + 1).fill(elem);
-    return array.join(',');
+    return array.join(',').flat();
   });
 }
 
@@ -293,8 +293,9 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  const res = arr.reverse();
+  return (res.length < 4) ? res : res.slice(0, 3);
 }
 
 
@@ -312,8 +313,8 @@ function get3TopItems(/* arr */) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-  console.log(arr);
-  return 0;
+  const array = arr.filter((elem) => Number.isInteger(elem) && elem > 0);
+  return array.length;
 }
 
 /**
@@ -345,8 +346,11 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  throw new Error('Not implemented');
+function getItemsSum(arr) {
+  if (arr.length === 0) {
+    return arr.length;
+  }
+  return arr.reduce((acc, elem) => acc + elem);
 }
 
 /**
@@ -361,8 +365,9 @@ function getItemsSum(/* arr */) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  const array = arr.filter((elem) => !elem);
+  return array.length;
 }
 
 /**
@@ -379,8 +384,9 @@ function getFalsyValuesCount(/* arr */) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurences(arr, item) {
+  const array = arr.filter((elem) => elem === item);
+  return array.length;
 }
 
 /**
@@ -394,8 +400,8 @@ function findAllOccurences(/* arr, item */) {
  *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
-function toStringList(/* arr */) {
-  throw new Error('Not implemented');
+function toStringList(arr) {
+  return arr.join(',');
 }
 
 
@@ -447,8 +453,9 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const arr = new Array(n).fill(new Array(n).fill(0));
+  return arr.map((elem, ind) => elem.map((el, i) => ((i === ind) ? 1 : 0)));
 }
 
 /**
@@ -464,8 +471,13 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  const arr = new Array(end - start + 1).fill(start);
+  let count = start - 1;
+  return arr.map(() => {
+    count += 1;
+    return count;
+  });
 }
 
 /**
@@ -479,8 +491,9 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  const res = arr.map((elem, ind, array) => ((array.includes(elem)) ? array.shift() : elem));
+  return res.filter((elem) => elem);
 }
 
 /**

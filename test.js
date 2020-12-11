@@ -1,6 +1,6 @@
-const param = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-const ttt = param.map((elem, ind) => {
-  const array = new Array(ind + 1).fill(elem);
-  return array.flat();
-});
-console.log(ttt);
+// const array = [ 'a', 'a', 'a', 'a' ];
+
+// const res = array.map((elem, ind, arr) => (arr.splice(ind, 1)));
+
+const date = Date(1900, 1, 1)
+console.log(date);
