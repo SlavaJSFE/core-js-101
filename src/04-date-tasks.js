@@ -54,7 +54,13 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-  return (date.getFullYear() % 4 === 0 && date.getFullYear() % 100 !== 0);
+  if (date.getFullYear() % 4 === 0) {
+    if (date.getFullYear() % 100 === 0 && date.getFullYear() % 400 !== 0) {
+      return false;
+    }
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -72,8 +78,19 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  function addZero(num) {
+    return (num > 9) ? num : `0${num}`;
+  }
+  const hours = endDate.getHours() - startDate.getHours();
+  const minutes = endDate.getMinutes() - startDate.getMinutes();
+  const seconds = endDate.getSeconds() - startDate.getSeconds();
+  const milliseconds = endDate.getMilliseconds() - startDate.getMilliseconds();
+  const time = `${addZero(hours)}:${addZero(minutes)}:${addZero(seconds)}.`;
+  if (milliseconds > 99) {
+    return `${time}${milliseconds}`;
+  }
+  return (milliseconds > 9) ? `${time}0${milliseconds}` : `${time}00${milliseconds}`;
 }
 
 

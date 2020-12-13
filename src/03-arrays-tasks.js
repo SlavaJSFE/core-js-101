@@ -238,8 +238,12 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  let acc = 0;
+  return arr.map((elem) => {
+    acc += elem;
+    return acc;
+  });
 }
 
 /**
@@ -275,8 +279,8 @@ function getSecondItems(arr) {
 function propagateItemsByPositionIndex(arr) {
   return arr.map((elem, ind) => {
     const array = new Array(ind + 1).fill(elem);
-    return array.join(',').flat();
-  });
+    return array;
+  }).flat();
 }
 
 
@@ -491,9 +495,10 @@ function getIntervalArray(start, end) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(arr) {
-  const res = arr.map((elem, ind, array) => ((array.includes(elem)) ? array.shift() : elem));
-  return res.filter((elem) => elem);
+function distinct(/* arr */) {
+  // const arr2 = arr.filter((elem, ind) => elem !== arr[ind + 1]);
+  // return arr2;
+  throw new Error('Not implemented');
 }
 
 /**
@@ -544,8 +549,8 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.map(childrenSelector).flat();
 }
 
 
@@ -561,8 +566,14 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  if (indexes.length === 1) {
+    return arr[indexes[0]];
+  }
+  if (indexes.length === 2) {
+    return arr[indexes[0]][indexes[1]];
+  }
+  return arr[indexes[0]][indexes[1]][indexes[2]];
 }
 
 
