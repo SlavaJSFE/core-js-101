@@ -71,10 +71,7 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-  let acc = n1;
-  for (let i = n1 + 1; i < n2 + 1; i += 1) {
-    acc += i;
-  }
+  return (n1 < n2) ? n1 + getSumBetweenNumbers(n1 + 1, n2) : n1;
 }
 
 /**
@@ -160,8 +157,9 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const distance = Math.sqrt((point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2);
+  return (distance < circle.radius);
 }
 
 
@@ -176,8 +174,10 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const res = str.split('').find((elem, ind, arr) => !arr.slice(ind + 1).includes(elem));
+  const check = str.split('').filter((elem) => elem === res);
+  return (check.length > 1) ? null : res;
 }
 
 
@@ -203,8 +203,10 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const leftBracket = (isStartIncluded) ? '[' : '(';
+  const rightBracket = (isEndIncluded) ? ']' : ')';
+  return (a < b) ? `${leftBracket}${a}, ${b}${rightBracket}` : `${leftBracket}${b}, ${a}${rightBracket}`;
 }
 
 
@@ -262,8 +264,30 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const arr = Array.from(String(ccn), Number);
+  const controlNumber = arr.slice(-1);
+  const toCheck = arr.slice(0, -1);
+  const processed = toCheck.map((elem, ind) => {
+    if (toCheck.length % 2 === 0) {
+      if (ind % 2 !== 0) {
+        if (elem * 2 > 9) {
+          return elem * 2 - 9;
+        }
+        return elem * 2;
+      }
+      return elem;
+    }
+    if (ind % 2 === 0) {
+      if (elem * 2 > 9) {
+        return elem * 2 - 9;
+      }
+      return elem * 2;
+    }
+    return elem;
+  });
+  processed.push(Number.parseInt(controlNumber.join(), 10));
+  return ((processed.reduce((acc, elem) => acc + elem)) % 10 === 0);
 }
 
 /**
@@ -280,8 +304,10 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  if (num < 10) return num;
+  const arr = Array.from(String(num), Number);
+  return getDigitalRoot(arr.reduce((acc, elem) => acc + elem));
 }
 
 

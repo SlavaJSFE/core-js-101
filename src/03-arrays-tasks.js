@@ -495,10 +495,9 @@ function getIntervalArray(start, end) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  // const arr2 = arr.filter((elem, ind) => elem !== arr[ind + 1]);
-  // return arr2;
-  throw new Error('Not implemented');
+function distinct(arr) {
+  const obj = new Set(arr);
+  return Array.from(obj);
 }
 
 /**
